@@ -1,6 +1,7 @@
 use rustworld_2d;
 use gotham::test::TestServer;
 use gotham::hyper::StatusCode;
+use std::str;
 
 
 #[test]
@@ -11,6 +12,6 @@ fn hello_world_web_test() {
     assert_eq!(response.status(), StatusCode::OK);
 
     let body = response.read_body().unwrap();
-    assert_eq!(body, b"Hello Gotham");
-
+    let body = str::from_utf8(&body).unwrap();
+    assert!(body.contains("Hello Gotham"));
 }
